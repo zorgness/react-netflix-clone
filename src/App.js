@@ -4,4 +4,4 @@ function App() {
   return <NetflixApp />
 }
 
-export {App}
+export default App

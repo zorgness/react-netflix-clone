@@ -1,26 +1,22 @@
 import React from 'react'
-
-// 🐶 créé une structure HTML simple represantant le site de Netflix
-// il y aura :
-// - une barre de menu
-// - un header
-// - un zone de pochette de film (format large)
-// - un zone de pochette de film (format poster)
-// - un footer
+import netflixLogo from '../images/netflix-logo.png'
+import netflixAvatar from '../images/netflix-avatar.png'
+import netflixSample from '../images/sample.jpg'
+import netflixSamplePoster from '../images/sample-poster.jpg'
 
 const NetflixApp = () => {
   return (
     <div>
-      {/* 👨‍✈️ Barre de menu :  créé la barre de menu en créant 7 élements (2 images logo et 5 liens)
-      La premiere image sera le logo NetFlix, la derniere image le boutton du compte.*/}
       <div>
-        {/* 🐶 créé une <img> avec la source "images/netflix-logo.png" et 'height' de 20px   */}
-        <img src={''} height="20" alt="" />
-        {/* 🐶 créé  5 liens <a> : Acceuil, Séries, Films, Nouveautés, Ma liste*/}
-        {/* 🐶 créé une <img> avec la source "images/netflix-avatar.png" et 'height' de 20px   */}
+        <img src={netflixLogo} height="20" alt="" />
+        <a href={{}}>Acceuil</a>
+        <a href={{}}>Séries</a>
+        <a href={{}}>Films</a>
+        <a href={{}}>Nouveautés</a>
+        <a href={{}}>Ma liste</a>
+        <img src={netflixAvatar} height="20" alt="" />
       </div>
 
-      {/* 👨‍✈️ Header : Contenant un titre, 2 bouttons, zone description */}
       <header>
         <div>
           <h1>La casa del papel</h1>
@@ -37,19 +33,17 @@ const NetflixApp = () => {
         </div>
       </header>
 
-      {/* 👨‍✈️ Zone ligne de films format large */}
       <div>
-        {/* 🐶 Créé un titre h2 : Films Netflix */}
+        <h2>Films Netflix</h2>
         <div>
-          {/* 🐶 Créé 4 <img> height à 250 : Alterne avec 'images/sample.jpg' et images/sample1.jpg  */}
+          <img src={netflixSample} alt="" height={250} />
         </div>
       </div>
 
-      {/* 👨‍✈️ Zone ligne de films format poster */}
       <div>
-        {/* 🐶 Créé un titre h2 : Série Netflix */}
+        <h2>Série NetFlix</h2>
         <div>
-          {/* 🐶 Créé 4 <img> height à 300 : Alterne avec 'images/sample-poster.jpg' et images/sample-poster1.jpg  */}
+          <img src={netflixSamplePoster} alt="" height={300} />
         </div>
       </div>
 
