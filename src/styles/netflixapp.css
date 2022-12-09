@@ -50,7 +50,7 @@ a {
   position: absolute;
   top: 0px;
   left: 0px;
-  /* background-image: url('./../images/netflix-n.png'); */
+  background-image: url('./../assets/images/netflix-n.png');
   background-size: 50px 50px;
   background-position: 5px 5px;
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@ a {
 
 /* banner */
 .banner {
-  background-image: url('./../images/banner.jpg');
+  background-image: url('./../assets/images/banner.jpg');
   background-size: cover;
   background-position: center center;
   color: white;
