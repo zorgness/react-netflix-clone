@@ -1,8 +1,13 @@
+// ⛏️ supprime les 2 imports suivants, nous ne les utiliseront pas
 import logo from './logo.svg'
 import './App.css'
+// 🐶 importe 'NetflixApp'
+// 🤖 import {NetflixApp} from 'components/NetflixApp'
 
 function App() {
   return (
+    // ⛏️ supprime la 'div' principale et son contenu et retourne à la place
+    // <NetflixApp />
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -21,5 +26,5 @@ function App() {
     </div>
   )
 }
-
-export default App
+// 🐶 edite maintenant le fichier 'components/NetflixApp'
+export {App}
