@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import netflixLogo from '../images/netflix-logo.png'
 import netflixAvatar from '../images/netflix-avatar.png'
 import netflixSample from '../images/sample.jpg'
@@ -10,10 +10,14 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 const NetflixApp = () => {
-  const appBarStyle = {
+  const appBarIntialStyle = {
     background: 'none',
     boxShadow: 'none',
   }
+
+  const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
+
+  useEffect(() => {})
   const margin10 = {
     margin: '10px',
   }
