@@ -17,15 +17,42 @@ const NetflixApp = () => {
   }
   return (
     <div>
-      <div>
-        <img src={netflixLogo} height="20" alt="" />
-        <a href={{}}>Acceuil</a>
-        <a href={{}}>Séries</a>
-        <a href={{}}>Films</a>
-        <a href={{}}>Nouveautés</a>
-        <a href={{}}>Ma liste</a>
-        <img src={netflixAvatar} height="20" alt="" />
-      </div>
+      <AppBar style={appBarStyle}>
+        <Toolbar>
+          <img className="nav__logo" src={netflixLogo} alt="" />
+          <a href="/">
+            <Typography style={margin10} variant="h6">
+              Acceuil
+            </Typography>
+          </a>
+          <a href="/series">
+            <Typography style={margin10} variant="h6">
+              Serie
+            </Typography>
+          </a>
+          <a href="/movies">
+            <Typography style={margin10} variant="h6">
+              Films
+            </Typography>
+          </a>
+          <a href="/news">
+            <Typography style={margin10} variant="h6">
+              Nouveautés les plus regardées
+            </Typography>
+          </a>
+          <a href="/list">
+            <Typography style={margin10} variant="h6">
+              Ma liste
+            </Typography>
+          </a>
+          <img
+            style={{marginLeft: 'auto'}}
+            className="nav__avatar"
+            src={netflixAvatar}
+            alt=""
+          />
+        </Toolbar>
+      </AppBar>
 
       <header>
         <div>
