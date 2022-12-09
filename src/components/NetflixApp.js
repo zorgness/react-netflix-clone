@@ -3,8 +3,18 @@ import netflixLogo from '../images/netflix-logo.png'
 import netflixAvatar from '../images/netflix-avatar.png'
 import netflixSample from '../images/sample.jpg'
 import netflixSamplePoster from '../images/sample-poster.jpg'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 const NetflixApp = () => {
+  const appBarStyle = {
+    background: 'none',
+    boxShadow: 'none',
+  }
+  const margin10 = {
+    margin: '10px',
+  }
   return (
     <div>
       <div>
