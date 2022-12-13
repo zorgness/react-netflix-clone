@@ -23,7 +23,6 @@ const NetflixApp = () => {
   const defaultMovieId = type === TYPE_MOVIE ? movieId : tvId
 
   useEffect(() => {
-    // const url = `https://api.themoviedb.org/3/${type}/${defaultMovieId}?api_key=${apiKey}&language=${lang}`
     const endpoint = type + '/' + defaultMovieId
     clientApi(endpoint)
       .then(response => response.json())
