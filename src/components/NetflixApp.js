@@ -17,7 +17,26 @@ const NetflixApp = () => {
 
   const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
 
-  useEffect(() => {})
+  useEffect(() => {
+    const onScroll = e => {
+      if (e.target.documentElement.scrollTop >= 100) {
+        setAppBarStyle({
+          background: '#111',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      } else {
+        setAppBarStyle({
+          background: 'transparent',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      }
+    }
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   const margin10 = {
     margin: '10px',
   }
