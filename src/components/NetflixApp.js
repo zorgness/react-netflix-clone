@@ -141,6 +141,9 @@ const NetflixApp = () => {
   const apiKey = process.env.REACT_APP_API_KEY
   const lang = 'fr-fr'
 
+  const tvIds = [71446, 60574, 1399, 66732]
+  const moviesIds = [399566, 602734, 579047, 385128, 615658]
+
   useEffect(() => {
     const url = `https://api.themoviedb.org/3/movie/${defaultMovieId}?api_key=${apiKey}&language=${lang}`
     fetch(url)
@@ -149,10 +152,12 @@ const NetflixApp = () => {
       .catch(err => console.log(err))
   }, [apiKey])
 
+  const [type] = ['tv', 'movie'][0]
+
   return (
     <>
       <NetflixAppBar />
-      <NetflixHeader movie={headerMovie} />
+      <NetflixHeader movie={headerMovie} type={type} />
       <NetflixRow wideImage={false} title="Films Netflix" />
       <NetflixRow wideImage={true} title="Série Netflix" />
       <NetFlixFooter />
