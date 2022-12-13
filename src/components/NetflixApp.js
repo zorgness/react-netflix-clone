@@ -9,39 +9,10 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-const NetflixApp = () => {
-  const appBarIntialStyle = {
-    background: 'none',
-    boxShadow: 'none',
-  }
-
-  const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
-
-  useEffect(() => {
-    const onScroll = e => {
-      if (e.target.documentElement.scrollTop >= 100) {
-        setAppBarStyle({
-          background: '#111',
-          transition: 'background .5s ease-out',
-          boxShadow: 'none',
-        })
-      } else {
-        setAppBarStyle({
-          background: 'transparent',
-          transition: 'background .5s ease-out',
-          boxShadow: 'none',
-        })
-      }
-    }
-    window.addEventListener('scroll', onScroll)
-
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-  const margin10 = {
-    margin: '10px',
-  }
+const NetflixAppBar = ({appBarStyle}) => {
+  const margin10 = {margin: 10}
   return (
-    <div>
+    <>
       <AppBar style={appBarStyle}>
         <Toolbar>
           <img className="nav__logo" src={netflixLogo} alt="" />
@@ -78,14 +49,22 @@ const NetflixApp = () => {
           />
         </Toolbar>
       </AppBar>
-
+    </>
+  )
+}
+const NetflixHeader = () => {
+  return (
+    <>
       <header className="banner">
         <div className="banner__contents">
-          <h1 className="banner__title">La casa del papel</h1>
+          <h1 className="banner__title">La casa de papel</h1>
           <div className="banner__buttons">
-            <button className="banner__button">Lecture</button>
-
-            <button className="banner__button">Ajouter à ma liste</button>
+            <button className="banner__button banner__buttonplay">
+              Lecture
+            </button>
+            <button className="banner__button banner__buttonInfo">
+              Ajouter à ma liste
+            </button>
           </div>
           <h1 className="synopsis">
             Le Professeur recrute une jeune braqueuse et sept autres criminels
@@ -93,8 +72,18 @@ const NetflixApp = () => {
             Monnaie d'Espagne.
           </h1>
         </div>
+        <div className="banner--fadeBottom"></div>
       </header>
+    </>
+  )
+}
+const NetFlixFooter = () => {
+  return <footer className="footer">2021 - Netflix Clone</footer>
+}
 
+const NetflixRow = ({title, wideImage}) => {
+  return (
+    <>
       <div className="row">
         <h2>Films Netflix</h2>
         <div className="row__posters">
@@ -126,9 +115,46 @@ const NetflixApp = () => {
           />
         </div>
       </div>
+    </>
+  )
+}
 
-      <footer>2022 - Netflix Clone</footer>
-    </div>
+const NetflixApp = () => {
+  const appBarIntialStyle = {
+    background: 'none',
+    boxShadow: 'none',
+  }
+
+  const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
+
+  useEffect(() => {
+    const onScroll = e => {
+      if (e.target.documentElement.scrollTop >= 100) {
+        setAppBarStyle({
+          background: '#111',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      } else {
+        setAppBarStyle({
+          background: 'transparent',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      }
+    }
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <>
+      <NetflixAppBar appBarStyle={appBarStyle} />
+      <NetflixHeader />
+      <NetflixRow />
+      <NetFlixFooter />
+    </>
   )
 }
 export {NetflixApp}
