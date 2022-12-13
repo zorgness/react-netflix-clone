@@ -82,37 +82,22 @@ const NetFlixFooter = () => {
 }
 
 const NetflixRow = ({title, wideImage}) => {
+  const image = wideImage ? netflixSamplePoster : netflixSample
   return (
     <>
       <div className="row">
-        <h2>Films Netflix</h2>
+        <h2>{title}</h2>
         <div className="row__posters">
-          <img
-            src={netflixSample}
-            alt=""
-            className="row__poster row__posterLarge"
-          />
-          <img
-            src={netflixSample2}
-            alt=""
-            className="row__poster row__posterLarge"
-          />
+          <img src={image} alt="" className="row__poster row__posterLarge" />
+          <img src={image} alt="" className="row__poster row__posterLarge" />
         </div>
       </div>
 
       <div>
-        <h2>Série NetFlix</h2>
+        <h2>{title}</h2>
         <div className="row__posters">
-          <img
-            src={netflixSamplePoster}
-            alt=""
-            className="row__poster row__posterLarge"
-          />
-          <img
-            src={netflixSamplePoster2}
-            alt=""
-            className="row__poster row__posterLarge"
-          />
+          <img src={image} alt="" className="row__poster row__posterLarge" />
+          <img src={image} alt="" className="row__poster row__posterLarge" />
         </div>
       </div>
     </>
