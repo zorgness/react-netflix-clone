@@ -16,7 +16,9 @@ const NetflixHeader = ({movie}) => {
       <>
         <header style={banner}>
           <div className="banner__contents">
-            <h1 className="banner__title">{movie?.title ?? null}</h1>
+            <h1 className="banner__title">
+              {movie?.title ?? movie?.original_name}
+            </h1>
             <div className="banner__buttons">
               <button className="banner__button banner__buttonplay">
                 Lecture

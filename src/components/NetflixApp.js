@@ -4,27 +4,32 @@ import NetflixAppBar from './NetflixAppBar'
 import NetflixHeader from './NetflixHeader'
 import NetflixFooter from './NetflixFooter'
 import NetflixRow from './NetflixRow'
+import {TYPE_TV, TYPE_MOVIE} from '../config'
+import {clientApi} from 'utils/clientApi'
 
 const NetflixApp = () => {
-  const defaultMovieId = 399566
-
   const [headerMovie, setHeaderMovie] = useState()
 
   const apiKey = process.env.REACT_APP_API_KEY
-  const lang = 'fr-fr'
 
-  const tvIds = [71446, 60574, 1399, 66732]
+  const [type] = useState([TYPE_TV, TYPE_MOVIE][getRandomIntInclusive(0, 1)])
+
+  const tvIds = [71446, 60574, 13999, 66732]
   const moviesIds = [399566, 602734, 579047, 385128, 615658]
 
+  const movieId = moviesIds[getRandomIntInclusive(0, moviesIds.length - 1)]
+  const tvId = tvIds[getRandomIntInclusive(0, tvIds.length - 1)]
+
+  const defaultMovieId = type === TYPE_MOVIE ? movieId : tvId
+
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/movie/${defaultMovieId}?api_key=${apiKey}&language=${lang}`
-    fetch(url)
+    // const url = `https://api.themoviedb.org/3/${type}/${defaultMovieId}?api_key=${apiKey}&language=${lang}`
+    const endpoint = type + '/' + defaultMovieId
+    clientApi(endpoint)
       .then(response => response.json())
       .then(data => setHeaderMovie(data))
       .catch(err => console.log(err))
-  }, [apiKey])
-
-  const [type] = useState(['tv', 'movie'][getRandomIntInclusive(0, 1)])
+  }, [apiKey, defaultMovieId, type])
 
   return (
     <>
