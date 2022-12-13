@@ -7,7 +7,34 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-const NetflixAppBar = ({appBarStyle}) => {
+const NetflixAppBar = () => {
+  const appBarIntialStyle = {
+    background: 'none',
+    boxShadow: 'none',
+  }
+
+  const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
+
+  useEffect(() => {
+    const onScroll = e => {
+      if (e.target.documentElement.scrollTop >= 100) {
+        setAppBarStyle({
+          background: '#111',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      } else {
+        setAppBarStyle({
+          background: 'transparent',
+          transition: 'background .5s ease-out',
+          boxShadow: 'none',
+        })
+      }
+    }
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   const margin10 = {margin: 10}
   return (
     <>
@@ -50,30 +77,42 @@ const NetflixAppBar = ({appBarStyle}) => {
     </>
   )
 }
-const NetflixHeader = () => {
-  return (
-    <>
-      <header className="banner">
-        <div className="banner__contents">
-          <h1 className="banner__title">La casa de papel</h1>
-          <div className="banner__buttons">
-            <button className="banner__button banner__buttonplay">
-              Lecture
-            </button>
-            <button className="banner__button banner__buttonInfo">
-              Ajouter à ma liste
-            </button>
+const NetflixHeader = ({movie}) => {
+  const imagePath = process.env.REACT_APP_IMAGE_PATH
+
+  const imageUrl = imagePath + movie?.backdrop_path
+
+  const banner = {
+    backgroundImage: `url('${imageUrl}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    color: 'white',
+    objectFit: 'contain',
+    height: '448px',
+  }
+  if (movie) {
+    return (
+      <>
+        <header style={banner}>
+          <div className="banner__contents">
+            <h1 className="banner__title">{movie?.title ?? null}</h1>
+            <div className="banner__buttons">
+              <button className="banner__button banner__buttonplay">
+                Lecture
+              </button>
+              <button className="banner__button banner__buttonInfo">
+                Ajouter à ma liste
+              </button>
+            </div>
+            <h1 className="synopsis">{movie?.overview ?? null}</h1>
           </div>
-          <h1 className="synopsis">
-            Le Professeur recrute une jeune braqueuse et sept autres criminels
-            en vue d'un cambriolage grandiose ciblant la Maison royale de la
-            Monnaie d'Espagne.
-          </h1>
-        </div>
-        <div className="banner--fadeBottom"></div>
-      </header>
-    </>
-  )
+          <div className="banner--fadeBottom"></div>
+        </header>
+      </>
+    )
+  } else {
+    return <></>
+  }
 }
 const NetFlixFooter = () => {
   return <footer className="footer">2021 - Netflix Clone</footer>
@@ -90,52 +129,32 @@ const NetflixRow = ({title, wideImage}) => {
           <img src={image} alt="" className="row__poster row__posterLarge" />
         </div>
       </div>
-
-      <div>
-        <h2>{title}</h2>
-        <div className="row__posters">
-          <img src={image} alt="" className="row__poster row__posterLarge" />
-          <img src={image} alt="" className="row__poster row__posterLarge" />
-        </div>
-      </div>
     </>
   )
 }
 
 const NetflixApp = () => {
-  const appBarIntialStyle = {
-    background: 'none',
-    boxShadow: 'none',
-  }
+  const defaultMovieId = 399566
 
-  const [appBarStyle, setAppBarStyle] = useState(appBarIntialStyle)
+  const [headerMovie, setHeaderMovie] = useState()
+
+  const apiKey = process.env.REACT_APP_API_KEY
+  const lang = 'fr-fr'
 
   useEffect(() => {
-    const onScroll = e => {
-      if (e.target.documentElement.scrollTop >= 100) {
-        setAppBarStyle({
-          background: '#111',
-          transition: 'background .5s ease-out',
-          boxShadow: 'none',
-        })
-      } else {
-        setAppBarStyle({
-          background: 'transparent',
-          transition: 'background .5s ease-out',
-          boxShadow: 'none',
-        })
-      }
-    }
-    window.addEventListener('scroll', onScroll)
-
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const url = `https://api.themoviedb.org/3/movie/${defaultMovieId}?api_key=${apiKey}&language=${lang}`
+    fetch(url)
+      .then(response => response.json())
+      .then(data => setHeaderMovie(data))
+      .catch(err => console.log(err))
+  }, [apiKey])
 
   return (
     <>
-      <NetflixAppBar appBarStyle={appBarStyle} />
-      <NetflixHeader />
-      <NetflixRow />
+      <NetflixAppBar />
+      <NetflixHeader movie={headerMovie} />
+      <NetflixRow wideImage={false} title="Films Netflix" />
+      <NetflixRow wideImage={true} title="Série Netflix" />
       <NetFlixFooter />
     </>
   )
