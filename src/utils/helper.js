@@ -14,7 +14,7 @@ export function getRandomMovie() {
   return moviesIds[getRandomIntInclusive(0, moviesIds.length - 1)]
 }
 export function getRandomSerie() {
-  const tvIds = [71446, 60574, 1399, 66732]
+  const tvIds = [71446, 60574, 1399, 66732, 9999]
   return tvIds[getRandomIntInclusive(0, tvIds.length - 1)]
 }
 export function getRandomId(type = TYPE_MOVIE) {
