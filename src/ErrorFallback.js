@@ -1,5 +1,5 @@
 import React from 'react'
-import {NetflixAppBar} from 'components/NetflixAppBar'
+import NetflixAppBar from './components/NetflixAppBar'
 
 const ErrorFallback = ({error, resetErrorBoundary}) => {
   return (

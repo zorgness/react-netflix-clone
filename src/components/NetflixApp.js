@@ -6,6 +6,20 @@ import NetflixFooter from './NetflixFooter'
 import NetflixRow from './NetflixRow'
 import {TYPE_TV, TYPE_MOVIE} from '../config'
 import {clientApi} from 'utils/clientApi'
+import {Alert, AlertTitle} from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import {makeStyles} from '@mui/styles'
+
+const useStyles = makeStyles({
+  alert: {
+    width: '50%',
+    margin: 'auto',
+    marginBotton: '50px',
+  },
+  progress: {
+    marginLeft: '30px',
+  },
+})
 
 const NetflixApp = () => {
   const [headerMovie, setHeaderMovie] = useState()
@@ -22,12 +36,21 @@ const NetflixApp = () => {
 
   const defaultMovieId = type === TYPE_MOVIE ? movieId : tvId
 
+  const [status, setStatus] = useState('idle')
+
   useEffect(() => {
     const endpoint = type + '/' + defaultMovieId
+    setStatus('fetching')
     clientApi(endpoint)
       .then(response => response.json())
-      .then(data => setHeaderMovie(data))
-      .catch(err => console.log(err))
+      .then(data => {
+        setHeaderMovie(data)
+        setStatus('done')
+      })
+      .catch(err => {
+        console.log(err)
+        setStatus('error')
+      })
   }, [apiKey, defaultMovieId, type])
 
   return (
@@ -36,6 +59,16 @@ const NetflixApp = () => {
       <NetflixHeader movie={headerMovie} type={type} />
       <NetflixRow wideImage={false} title="Films Netflix" />
       <NetflixRow wideImage={true} title="Série Netflix" />
+      {status === 'error' ?? (
+        <div className="alert">
+          <Alert severity="error" />
+        </div>
+      )}
+      {status === 'fetching' ?? (
+        <div className="progress">
+          <CircularProgress />
+        </div>
+      )}
       <NetflixFooter />
     </>
   )
