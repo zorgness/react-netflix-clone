@@ -61,7 +61,10 @@ const NetflixApp = () => {
       <NetflixRow wideImage={true} title="Série Netflix" />
       {status === 'error' ?? (
         <div className="alert">
-          <Alert severity="error" />
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            This is an error alert — <strong>check it out!</strong>
+          </Alert>
         </div>
       )}
       {status === 'fetching' ?? (
