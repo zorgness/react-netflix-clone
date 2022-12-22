@@ -11,9 +11,6 @@ const NetflixRow = ({
   wideImage = true,
   type = TYPE_MOVIE,
   param,
-  latest,
-  genre,
-  trending,
   filter,
   watermark = false,
 }) => {
@@ -74,19 +71,20 @@ const NetflixRow = ({
       </Alert>
     )
   }
-  console.log(data)
+
   return (
     <>
       <div className="row">
         <h2>{title}</h2>
         <div className="row__posters">
-          {data?.results?.map(item => {
+          {data?.results.map(movie => {
             return (
-              <img
-                src={buildImagePath(item)}
-                alt=""
-                className="row__poster row__posterLarge"
-              />
+              <div
+                key={movie.id}
+                className={`row__poster row__posterLarge ${watermarkClass}`}
+              >
+                <img src={buildImagePath(movie)} alt={movie.name} />
+              </div>
             )
           })}
         </div>
