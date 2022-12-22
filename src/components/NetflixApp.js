@@ -63,7 +63,7 @@ const NetflixApp = () => {
         wideImage={true}
         watermark={true}
         type={TYPE_MOVIE}
-        filter={'top_rated'}
+        filter={'toprated'}
         title="Les mieux notés"
       />
 
@@ -71,15 +71,17 @@ const NetflixApp = () => {
         wideImage={true}
         watermark={true}
         type={TYPE_TV}
-        id={10759}
+        param={10759}
+        filter="genre"
         title="Action & aventure"
       />
 
       <NetflixRow
         wideImage={true}
         watermark={true}
-        type={TYPE_TV}
-        id={53}
+        type={TYPE_MOVIE}
+        param={53}
+        filter="genre"
         title="Les meilleurs Thrillers"
       />
       {status === 'error' ? (

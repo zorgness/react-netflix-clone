@@ -1,5 +1,3 @@
-import netflixSample from '../images/sample.jpg'
-import netflixSamplePoster from '../images/sample-poster.jpg'
 import {Alert, AlertTitle} from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import {useFetchData} from 'utils/hooks'
@@ -82,7 +80,15 @@ const NetflixRow = ({
       <div className="row">
         <h2>{title}</h2>
         <div className="row__posters">
-          <img src={''} alt="" className="row__poster row__posterLarge" />
+          {data?.results?.map(item => {
+            return (
+              <img
+                src={buildImagePath(item)}
+                alt=""
+                className="row__poster row__posterLarge"
+              />
+            )
+          })}
         </div>
       </div>
     </>
