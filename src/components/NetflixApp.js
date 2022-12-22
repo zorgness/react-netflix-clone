@@ -30,6 +30,7 @@ const NetflixApp = () => {
 
   useEffect(() => {
     execute(clientApi(`${type}/${defaultMovieId}`))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (status === 'error') {
