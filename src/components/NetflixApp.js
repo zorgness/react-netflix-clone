@@ -9,6 +9,7 @@ import {Alert, AlertTitle} from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import {makeStyles} from '@mui/styles'
 import {useFetchData} from 'utils/hooks'
+import {TYPE_MOVIE, TYPE_TV} from 'config'
 
 const useStyles = makeStyles({
   alert: {
@@ -41,8 +42,46 @@ const NetflixApp = () => {
     <>
       <NetflixAppBar />
       <NetflixHeader movie={headerMovie} type={type} />
-      <NetflixRow wideImage={false} title="Films Netflix" />
-      <NetflixRow wideImage={true} title="Série Netflix" />
+
+      <NetflixRow
+        wideImage={true}
+        watermark={true}
+        type={TYPE_MOVIE}
+        filter={'trending'}
+        title="Films Netflix"
+      />
+
+      <NetflixRow
+        wideImage={false}
+        watermark={true}
+        type={TYPE_TV}
+        filter={'trending'}
+        title="Série Netflix"
+      />
+
+      <NetflixRow
+        wideImage={true}
+        watermark={true}
+        type={TYPE_MOVIE}
+        filter={'top_rated'}
+        title="Les mieux notés"
+      />
+
+      <NetflixRow
+        wideImage={true}
+        watermark={true}
+        type={TYPE_TV}
+        id={10759}
+        title="Action & aventure"
+      />
+
+      <NetflixRow
+        wideImage={true}
+        watermark={true}
+        type={TYPE_TV}
+        id={53}
+        title="Les meilleurs Thrillers"
+      />
       {status === 'error' ? (
         <div className="alert">
           <Alert severity="error">
