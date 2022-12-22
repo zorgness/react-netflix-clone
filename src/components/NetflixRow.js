@@ -1,15 +1,12 @@
 import netflixSample from '../images/sample.jpg'
 import netflixSamplePoster from '../images/sample-poster.jpg'
-import {
-  useFetchData,
-  Alert,
-  AlertTitle,
-  CircularProgress,
-  imagePath400,
-} from 'utils/hooks'
+import {Alert, AlertTitle} from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import {useFetchData} from 'utils/hooks'
 import {clientApi} from 'utils/clientApi'
 import {TYPE_MOVIE} from './../config'
 import React from 'react'
+import {imagePath400} from './../config'
 
 const NetflixRow = ({
   title = '',
@@ -24,37 +21,68 @@ const NetflixRow = ({
 }) => {
   // 🐶 Utilise le Hook 'useFetchData' (avec {data, error, status, execute})
   const {data, error, status, execute} = useFetchData()
-  // 🐶 determine le bon 'endpoint' qui permet de faire le bon appel API
-  // utilise le prop 'filter' pour determiner le bon enpoint.
-  //
-  // les 5 endpoints possibles pour le moment sont
-  //
-  // const endpointPopular = `${type}/popular`
-  // const endpointLatest = `${type}/latest`
-  // const endpointTopRated = `${type}/top_rated`
-  // const endpointGenre = `discover/${type}?with_genres=${param}`
-  // const endpointTrending = `trending/${type}/day`
+  const endpointLatest = `${type}/latest`
+  const endpointPopular = `${type}/popular`
+  const endpointTopRated = `${type}/top_rated`
+  const endpointGenre = `discover/${type}?with_genres=${param}`
+  const endpointTrending = `trending/${type}/day`
 
-  // 🐶 utilise le Hook 'useEffect' pour faire le bon appel API
-  // en utilisant 'execute', 'clientAPi', 'endpoint'
+  let endpoint
+  switch (filter) {
+    case 'populaire':
+      endpoint = endpointPopular
+      break
+    case 'latest':
+      endpoint = endpointLatest
+      break
+    case 'toprated':
+      endpoint = endpointTopRated
+      break
+    case 'genre':
+      endpoint = endpointGenre
+      break
+    case 'trending':
+      endpoint = endpointTrending
+      break
+    default:
+      throw new Error('Type non supporté')
+  }
 
   React.useEffect(() => {
-    execute(clientApi())
-  })
+    execute(clientApi(endpoint))
+  }, [execute, endpoint])
 
-  // 🐶 créé une fonction 'buildImagePath' qui prend en paramètre 'data', data sera la donnée
-  // provenant de l'api, elle peut etre une film ou une serie.
-  // le but de cette fonction est de retourner la bonne URL de l'image en fonction du prop 'wideImage'
-  // Si 'wideImage' est à 'true' on utilisera le champs 'backdrop_path' sinon 'poster_path'
-  // utilise la constante 'imagePath400' qui contient le debut de l'url pour un image.
-  const image = wideImage ? netflixSample : netflixSamplePoster
+  const buildImagePath = data => {
+    const image = wideImage ? data?.backdrop_path : data?.poster_path
+    return `${imagePath400}${image}`
+  }
+  const watermarkClass = watermark ? 'watermarked' : ''
+
+  if (status === 'fetching' || status === 'idle') {
+    return (
+      <div className="row">
+        <h2>{title}</h2>
+        <div className="row__posters">
+          <CircularProgress />
+        </div>
+      </div>
+    )
+  }
+  if (status === 'error') {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Une erreur est survenue</AlertTitle>
+        Detail : {error.message}
+      </Alert>
+    )
+  }
+  console.log(data)
   return (
     <>
       <div className="row">
         <h2>{title}</h2>
         <div className="row__posters">
-          <img src={image} alt="" className="row__poster row__posterLarge" />
-          <img src={image} alt="" className="row__poster row__posterLarge" />
+          <img src={''} alt="" className="row__poster row__posterLarge" />
         </div>
       </div>
     </>
