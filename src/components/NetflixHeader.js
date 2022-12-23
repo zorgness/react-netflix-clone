@@ -1,6 +1,7 @@
-const NetflixHeader = ({movie}) => {
-  const imagePath = process.env.REACT_APP_IMAGE_PATH
+import {HeaderSkeleton} from './skeletons/HeaderSkeleton'
+import {imagePath} from 'config'
 
+const NetflixHeader = ({movie}) => {
   const imageUrl = imagePath + movie?.backdrop_path
 
   const banner = {
