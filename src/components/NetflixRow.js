@@ -5,6 +5,7 @@ import {clientApi} from 'utils/clientApi'
 import {TYPE_MOVIE} from './../config'
 import React from 'react'
 import {imagePath400} from './../config'
+import {RowSkeleton} from './skeletons/RowSkeleton'
 
 const NetflixRow = ({
   title = '',
@@ -54,14 +55,7 @@ const NetflixRow = ({
   const watermarkClass = watermark ? 'watermarked' : ''
 
   if (status === 'fetching' || status === 'idle') {
-    return (
-      <div className="row">
-        <h2>{title}</h2>
-        <div className="row__posters">
-          <CircularProgress />
-        </div>
-      </div>
-    )
+    return <RowSkeleton />
   }
   if (status === 'error') {
     return (

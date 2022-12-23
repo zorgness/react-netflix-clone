@@ -12,6 +12,9 @@ const NetflixHeader = ({movie}) => {
     objectFit: 'contain',
     height: '448px',
   }
+  if (!movie) {
+    return <HeaderSkeleton />
+  }
   if (movie) {
     return (
       <>
