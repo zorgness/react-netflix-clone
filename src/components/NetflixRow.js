@@ -71,7 +71,7 @@ const NetflixRow = ({
       <div className="row">
         <h2>{title}</h2>
         <div className="row__posters">
-          {data?.results.map(movie => {
+          {data?.data?.results.map(movie => {
             return (
               <Link key={movie.id} to={`/${type}/${movie.id}`}>
                 <div

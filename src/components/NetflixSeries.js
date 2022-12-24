@@ -42,7 +42,7 @@ const NetflixSeries = () => {
   return (
     <>
       <NetflixAppBar />
-      <NetflixHeader movie={headerMovie} type={type} />
+      <NetflixHeader movie={headerMovie?.data} type={type} />
 
       <NetflixRow
         wideImage={true}
