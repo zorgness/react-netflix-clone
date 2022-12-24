@@ -1,10 +1,10 @@
 import React from 'react'
-import NetflixAppBar from './components/NetflixAppBar'
+// import NetflixAppBar from './NetflixAppBar'
 
 const ErrorFallback = ({error, resetErrorBoundary}) => {
   return (
     <div>
-      <NetflixAppBar />
+      {/* <NetflixAppBar /> */}
       <div
         role="alert"
         style={{

@@ -1,4 +1,4 @@
-import {NetflixAppBar} from 'components/NetflixAppBar'
+import NetflixAppBar from 'components/NetflixAppBar'
 
 function ErrorFallback({error, resetErrorBoundary}) {
   return (
