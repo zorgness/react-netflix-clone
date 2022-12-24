@@ -28,6 +28,7 @@ const NetflixHeader = ({movie, type = TYPE_MOVIE}) => {
 
   const handleAddToListClick = async () => {
     const token = await authNetflix.getToken()
+    console.log(token)
     execute(
       clientNetFlix(`bookmark/${type}`, {
         token,
