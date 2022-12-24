@@ -4,6 +4,7 @@ import * as authNetflix from './utils/authNetflixProvider'
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import {AuthApp} from 'AuthApp'
 import {UnauthApp} from 'UnauthApp'
+import 'App.css'
 
 const theme = createTheme({
   palette: {
