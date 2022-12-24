@@ -38,7 +38,6 @@ function App() {
             <Route exact path="/tv/:tvId" element={<NetflixById />} />
           </Routes>
         </Router>
-        <NetflixApp />
       </ThemeProvider>
     </ErrorBoundary>
   )
