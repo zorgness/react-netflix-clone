@@ -1,4 +1,5 @@
 export const API_URL = process.env.REACT_APP_API_URL
+export const AUTH_URL = process.env.REACT_APP_AUTH_URL
 export const lang = 'fr-fr'
 export const imagePath = process.env.REACT_APP_IMAGE_URL
 export const imagePathOriginal = `${imagePath}/original`
