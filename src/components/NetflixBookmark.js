@@ -1,11 +1,10 @@
 import * as React from 'react'
-// 🐶 importe les ressouces suivantes :
-// import {NetflixAppBar} from './NetflixAppBar'
-// import {NetflixHeader} from './NetflixHeader'
-// import {useFetchData} from '../utils/hooks'
-// import {clientNetFlix, clientApi} from '../utils/clientApi'
-// import * as authNetflix from '../utils/authNetflixProvider'
-// import {TYPE_MOVIE, TYPE_TV, imagePath400} from '../config'
+import NetflixAppBar from './NetflixAppBar'
+import NetflixHeader from './NetflixHeader'
+import {useFetchData} from '../utils/hooks'
+import {clientNetFlix, clientApi} from '../utils/clientApi'
+import * as authNetflix from '../utils/authNetflixProvider'
+import {TYPE_MOVIE, TYPE_TV, imagePath400} from '../config'
 import {Link} from 'react-router-dom'
 
 // 🐶 'NetflixBookmark' devra faire deux appels API
