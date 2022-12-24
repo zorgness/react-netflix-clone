@@ -53,7 +53,7 @@ const NetflixById = () => {
   return (
     <div>
       <NetflixAppBar />
-      <NetflixHeader movie={headerMovie?.data} type={type} />
+      <NetflixHeader movie={headerMovie} type={type} />
       <NetflixRow
         wideImage={true}
         watermark={true}

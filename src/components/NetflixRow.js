@@ -1,11 +1,11 @@
 import {Alert, AlertTitle} from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress'
 import {useFetchData} from 'utils/hooks'
 import {clientApi} from 'utils/clientApi'
 import {TYPE_MOVIE} from './../config'
 import React from 'react'
 import {imagePath400} from './../config'
 import {RowSkeleton} from './skeletons/RowSkeleton'
+import {Link} from 'react-router-dom'
 
 const NetflixRow = ({
   title = '',
@@ -73,12 +73,13 @@ const NetflixRow = ({
         <div className="row__posters">
           {data?.results.map(movie => {
             return (
-              <div
-                key={movie.id}
-                className={`row__poster row__posterLarge ${watermarkClass}`}
-              >
-                <img src={buildImagePath(movie)} alt={movie.name} />
-              </div>
+              <Link key={movie.id} to={`/${type}/${movie.id}`}>
+                <div
+                  className={`row__poster row__posterLarge ${watermarkClass}`}
+                >
+                  <img src={buildImagePath(movie)} alt={movie.name} />
+                </div>
+              </Link>
             )
           })}
         </div>
