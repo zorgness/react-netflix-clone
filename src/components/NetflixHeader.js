@@ -1,7 +1,11 @@
 import {HeaderSkeleton} from './skeletons/HeaderSkeleton'
-import {imagePathOriginal} from 'config'
+import {imagePathOriginal, TYPE_MOVIE} from '../config'
+import {useFetchData} from 'utils/hooks'
+// import {clientNetFlix}
 
-const NetflixHeader = ({movie}) => {
+import * as authNetflix from '../utils/authNetflixProvider'
+
+const NetflixHeader = ({movie = TYPE_MOVIE}) => {
   const imageUrl = imagePathOriginal + movie?.backdrop_path
 
   const banner = {
