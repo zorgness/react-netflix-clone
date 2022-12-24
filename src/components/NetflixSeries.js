@@ -89,7 +89,7 @@ const NetflixSeries = () => {
         <div className={classes.alert}>
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            This is an error alert — <strong>check it out!</strong>
+            This is an error alert — <strong>{error.message}</strong>
           </Alert>
         </div>
       ) : null}
