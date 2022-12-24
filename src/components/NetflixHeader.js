@@ -6,7 +6,7 @@ import * as authNetflix from '../utils/authNetflixProvider'
 import React from 'react'
 
 const NetflixHeader = ({movie, type = TYPE_MOVIE}) => {
-  const {data, error, status, execute} = useFetchData()
+  const {data, execute} = useFetchData()
   const imageUrl = imagePathOriginal + movie?.backdrop_path
   const title = type === TYPE_MOVIE ? movie?.title : movie?.name
   const banner = {
@@ -19,32 +19,39 @@ const NetflixHeader = ({movie, type = TYPE_MOVIE}) => {
   }
 
   React.useEffect(() => {
-    const token = authNetflix.getToken()
-    execute(clientNetFlix(`bookmark`, {token}))
-  }, [])
+    async function getTokenExecute() {
+      const token = await authNetflix.getToken()
+      execute(clientNetFlix(`bookmark`, {token}))
+    }
+    getTokenExecute()
+  }, [execute])
 
-  // 🐶 utilise le hook 'useEffect' pour faire l'appel API GET '/bookmark'
-  // pour cela utilise :
-  // 🤖
-  // authNetflix.getToken()
-  // execute(clientNetFlix(`bookmark`, {token}))
-  // NOTE : authNetflix.getToken() s'utilise de manière asynchrone avec 'await'
+  const handleAddToListClick = async () => {
+    const token = await authNetflix.getToken()
+    execute(
+      clientNetFlix(`bookmark/${type}`, {
+        token,
+        data: {id: movie.id},
+        method: 'POST',
+      }),
+    )
+  }
 
-  // 🐶 créé un boolean 'isInList' permetant de s'avoir si 'movie.id' est deja
-  // dans la liste des favoris récuperer par l'api '/bookmark'
-  // rapel du format des données reçues
-  // data.bookmark.movies[ids de films]
-  // data.bookmark.tv[ids de séries]
+  const handleDeleteToListClick = async () => {
+    const token = await authNetflix.getToken()
+    execute(
+      clientNetFlix(`bookmark/${type}`, {
+        token,
+        data: {id: movie.id},
+        method: 'DELETE',
+      }),
+    )
+  }
 
-  // 🐶 créé une fonction async 'handleAddToListClick' qui fera l'appel API REST
-  // '/bookmark/tv' ou '/bookmark/movie'
-  // utilise 'clientNetFlix' car il permet de passer des options : {token,data,method}
-  // - passe le 'token'
-  // - passe comme 'data' : id (l'id du film/serie)
-  // - passe come 'method' 'POST'
+  const isInList = data?.bookmark[
+    type === TYPE_MOVIE ? 'movies' : 'series'
+  ]?.includes(movie?.id)
 
-  // 🐶 créé une fonction async 'handleDeleteToListClick'
-  // pareil que précedement mais en utilisant la methode 'DELETE'
   if (!movie) {
     return <HeaderSkeleton />
   }
@@ -58,9 +65,21 @@ const NetflixHeader = ({movie, type = TYPE_MOVIE}) => {
               <button className="banner__button banner__buttonplay">
                 Lecture
               </button>
-              <button className="banner__button banner__buttonInfo">
-                Ajouter à ma liste
-              </button>
+              {isInList ? (
+                <button
+                  className="banner__button banner__buttonInfo"
+                  onClick={handleDeleteToListClick}
+                >
+                  Supprimer de ma liste
+                </button>
+              ) : (
+                <button
+                  className="banner__button banner__buttonInfo"
+                  onClick={handleAddToListClick}
+                >
+                  Ajouter à ma liste
+                </button>
+              )}
             </div>
             <h1 className="synopsis">{movie?.overview ?? null}</h1>
           </div>
