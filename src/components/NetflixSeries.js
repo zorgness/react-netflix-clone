@@ -23,6 +23,7 @@ const useStyles = makeStyles({
 })
 
 const NetflixSeries = () => {
+  const classes = useStyles()
   const [type] = useState(getRandomType())
 
   const defaultMovieId = getRandomId(type)
@@ -85,7 +86,7 @@ const NetflixSeries = () => {
         title="Les meilleurs Thrillers"
       />
       {status === 'error' ? (
-        <div className="alert">
+        <div className={classes.alert}>
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             This is an error alert — <strong>check it out!</strong>
@@ -93,7 +94,7 @@ const NetflixSeries = () => {
         </div>
       ) : null}
       {status === 'fetching' ? (
-        <div className="progress">
+        <div className={classes.progress}>
           <CircularProgress />
         </div>
       ) : null}

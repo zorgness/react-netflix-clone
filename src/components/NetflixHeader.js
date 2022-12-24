@@ -1,8 +1,8 @@
 import {HeaderSkeleton} from './skeletons/HeaderSkeleton'
-import {imagePath} from 'config'
+import {imagePathOriginal} from 'config'
 
 const NetflixHeader = ({movie}) => {
-  const imageUrl = imagePath + movie?.backdrop_path
+  const imageUrl = imagePathOriginal + movie?.backdrop_path
 
   const banner = {
     backgroundImage: `url('${imageUrl}')`,
