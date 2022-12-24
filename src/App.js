@@ -1,19 +1,13 @@
-import './App.css'
-import {ErrorBoundary} from 'react-error-boundary'
-import ErrorFallback from 'ErrorFallback'
-import {ThemeProvider} from '@mui/styles'
-import {createTheme} from '@mui/material/styles'
-import {NetflixApp} from 'components/NetflixApp'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import {NetflixMovies} from 'components/NetflixMovies'
-import {NetflixSeries} from 'components/NetflixSeries'
-import {NetflixNews} from 'components/NetflixNews'
-import Error404 from 'components/Error404'
-import NetflixById from 'components/NetflixById'
+import * as React from 'react'
+import './mocks'
+import * as authNetflix from './utils/authNetflixProvider'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {AuthApp} from 'AuthApp'
+import {UnauthApp} from 'UnauthApp'
 
 const theme = createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       main: '#E50914',
     },
@@ -24,23 +18,23 @@ const theme = createTheme({
 })
 
 function App() {
+  const [authUser, setAuthUser] = React.useState(null)
+  const login = data => authNetflix.login(data).then(user => setAuthUser(user))
+  const register = data =>
+    authNetflix.register(data).then(user => setAuthUser(user))
+  const logout = () => {
+    authNetflix.logout()
+    setAuthUser(null)
+  }
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<NetflixApp />} />
-            <Route exact path="*" element={<Error404 />} />
-            <Route exact path="/movies" element={<NetflixMovies />} />
-            <Route exact path="/series" element={<NetflixSeries />} />
-            <Route exact path="/news" element={<NetflixNews />} />
-            <Route exact path="/movie/:movieId" element={<NetflixById />} />
-            <Route exact path="/tv/:tvId" element={<NetflixById />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <ThemeProvider theme={theme}>
+      {authUser ? (
+        <AuthApp logout={logout} />
+      ) : (
+        <UnauthApp login={login} register={register} />
+      )}
+    </ThemeProvider>
   )
 }
 
-export default App
+export {App}
