@@ -52,7 +52,7 @@ const NetflixRow = ({
 
   console.log(status)
 
-  if (status === 'fetching' || status === 'idle') {
+  if (status === 'loading' || status === 'idle') {
     return <RowSkeleton />
   }
   if (status === 'error') {
@@ -85,4 +85,4 @@ const NetflixRow = ({
     </>
   )
 }
-export default NetflixRow
+export {NetflixRow}

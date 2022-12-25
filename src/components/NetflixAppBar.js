@@ -78,4 +78,4 @@ const NetflixAppBar = ({logout}) => {
   )
 }
 
-export default NetflixAppBar
+export {NetflixAppBar}
