@@ -75,6 +75,7 @@ function App() {
       .catch(err => setAuthError(err))
   const logout = () => {
     authNetflix.logout()
+    queryClient.clear()
     setData(null)
   }
 
