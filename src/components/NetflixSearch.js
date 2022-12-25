@@ -1,6 +1,6 @@
 import React from 'react'
 import {NetflixAppBar} from './NetflixAppBar'
-import {NetFlixFooter} from './NetFlixFooter'
+import {NetflixFooter} from './NetflixFooter'
 import {NetflixHeader} from './NetflixHeader'
 import {TYPE_MOVIE, TYPE_TV, imagePath400} from '../config'
 import {Link} from 'react-router-dom'
@@ -46,7 +46,7 @@ const NetflixSearch = ({logout}) => {
         </>
       )}
 
-      <NetFlixFooter color="secondary" si />
+      <NetflixFooter color="secondary" si />
     </div>
   )
 }
