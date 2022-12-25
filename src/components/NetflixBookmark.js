@@ -1,28 +1,22 @@
 import * as React from 'react'
-import NetflixAppBar from './NetflixAppBar'
-import NetflixHeader from './NetflixHeader'
-import {useFetchData} from '../utils/hooks'
+import {NetflixAppBar} from './NetflixAppBar'
+import {NetflixHeader} from './NetflixHeader'
+import {useQuery} from 'react-query'
 import {clientNetFlix, clientApi} from '../utils/clientApi'
 import * as authNetflix from '../utils/authNetflixProvider'
 import {Link} from 'react-router-dom'
 import {TYPE_MOVIE, TYPE_TV, imagePath400} from '../config'
 
 const NetflixBookmark = ({logout}) => {
-  const {data, execute} = useFetchData()
-  const {data: headerMovie, execute: executeHeader} = useFetchData()
+  const {data} = useQuery(`bookmark`, async () => {
+    const token = await authNetflix.getToken()
+    return clientNetFlix(`bookmark`, {token})
+  })
 
-  React.useEffect(() => {
-    async function getTokenExecute() {
-      const token = await authNetflix.getToken()
-      execute(clientNetFlix(`bookmark`, {token}))
-    }
-    getTokenExecute()
-  }, [execute])
-
-  React.useEffect(() => {
-    const id = data?.bookmark?.movies?.[0] ?? 749274
-    executeHeader(clientApi(`${TYPE_MOVIE}/${id}`))
-  }, [data, executeHeader])
+  const id = data?.bookmark.movies?.[0] ?? 749274
+  const {data: headerMovie} = useQuery(`${TYPE_MOVIE}/${id}`, () =>
+    clientApi(`${TYPE_MOVIE}/${id}`),
+  )
 
   return (
     <>
@@ -58,12 +52,9 @@ const NetflixBookmark = ({logout}) => {
 }
 
 const Card = ({id, type, watermark, wideImage}) => {
-  const {data, execute} = useFetchData()
   const [image, setImage] = React.useState('')
 
-  React.useEffect(() => {
-    execute(clientApi(`${type}/${id}`))
-  }, [execute, id, type])
+  const {data} = useQuery(`${type}/${id}`, () => clientApi(`${type}/${id}`))
 
   React.useEffect(() => {
     const buildImagePath = data => {
