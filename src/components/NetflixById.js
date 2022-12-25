@@ -4,27 +4,11 @@ import NetflixRow from './NetflixRow'
 import NetflixFooter from './NetflixFooter'
 import NetflixHeader from './NetflixHeader'
 import {clientApi} from '../utils/clientApi'
-import {makeStyles} from '@mui/styles'
-import {Alert, AlertTitle} from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress'
-import {useFetchData} from '../utils/hooks'
+import {useQuery} from 'react-query'
 import {TYPE_MOVIE, TYPE_TV} from '../config'
 import {useParams, useLocation} from 'react-router-dom'
 
-const useStyles = makeStyles(theme => ({
-  alert: {
-    width: '50%',
-    margin: 'auto',
-    marginBotton: '50px',
-  },
-  progress: {
-    marginLeft: '30px',
-  },
-}))
-
 const NetflixById = () => {
-  const classes = useStyles()
-  const {data: headerMovie, error, status, execute} = useFetchData()
   let {tvId, movieId} = useParams()
   const location = useLocation()
   const [type, setType] = React.useState(
@@ -32,9 +16,9 @@ const NetflixById = () => {
   )
   const [id, setId] = React.useState(type === TYPE_TV ? tvId : movieId)
 
-  React.useEffect(() => {
-    execute(clientApi(`${type}/${id}`))
-  }, [execute, id, type])
+  const {data: headerMovie} = useQuery(`${type}/${id}`, () =>
+    clientApi(`${type}/${id}`),
+  )
 
   React.useEffect(() => {
     const type = location.pathname.includes(TYPE_TV) ? TYPE_TV : TYPE_MOVIE
@@ -46,10 +30,6 @@ const NetflixById = () => {
     })
   }, [location.pathname, movieId, tvId])
 
-  if (status === 'error') {
-    // sera catché par ErrorBoundary
-    throw new Error(error.message)
-  }
   return (
     <div>
       <NetflixAppBar />
@@ -95,20 +75,6 @@ const NetflixById = () => {
         wideImage={false}
       />
 
-      {status === 'error' ? (
-        <div className={classes.alert}>
-          <Alert severity="error">
-            <AlertTitle>Une erreur est survenue</AlertTitle>
-            Detail : {error.message}
-          </Alert>
-        </div>
-      ) : null}
-
-      {status === 'fetching' ? (
-        <div className={classes.progress}>
-          <CircularProgress />{' '}
-        </div>
-      ) : null}
       <NetflixFooter color="secondary" si />
     </div>
   )

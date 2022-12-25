@@ -1,43 +1,21 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {getRandomType, getRandomId} from 'utils/helper'
 import NetflixAppBar from './NetflixAppBar'
 import NetflixHeader from './NetflixHeader'
 import NetflixFooter from './NetflixFooter'
 import NetflixRow from './NetflixRow'
 import {clientApi} from 'utils/clientApi'
-import {Alert, AlertTitle} from '@mui/material'
-import CircularProgress from '@mui/material/CircularProgress'
-import {makeStyles} from '@mui/styles'
-import {useFetchData} from 'utils/hooks'
+import {useQuery} from 'react-query'
 import {TYPE_MOVIE, TYPE_TV} from 'config'
 
-const useStyles = makeStyles({
-  alert: {
-    width: '50%',
-    margin: 'auto',
-    marginBotton: '50px',
-  },
-  progress: {
-    marginLeft: '30px',
-  },
-})
-
 const NetflixMovies = ({logout}) => {
-  const classes = useStyles()
   const [type] = useState(getRandomType())
 
   const defaultMovieId = getRandomId(type)
 
-  const {data: headerMovie, status, error, execute} = useFetchData()
-
-  useEffect(() => {
-    execute(clientApi(`${type}/${defaultMovieId}`))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  if (status === 'error') {
-    throw new Error(error.message)
-  }
+  const {data: headerMovie} = useQuery(`${type}/${defaultMovieId}`, () =>
+    clientApi(`${type}/${defaultMovieId}`),
+  )
 
   return (
     <>
@@ -85,19 +63,7 @@ const NetflixMovies = ({logout}) => {
         filter="genre"
         title="Les meilleurs Thrillers"
       />
-      {status === 'error' ? (
-        <div className={classes.alert}>
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            This is an error alert — <strong>{error.message}</strong>
-          </Alert>
-        </div>
-      ) : null}
-      {status === 'fetching' ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
-      ) : null}
+
       <NetflixFooter />
     </>
   )
