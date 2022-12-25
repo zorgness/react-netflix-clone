@@ -6,7 +6,7 @@ import netflixLogo from '../images/netflix-logo.png'
 import netflixAvatar from '../images/netflix-avatar.png'
 import {Link} from 'react-router-dom'
 
-const NetflixAppBar = () => {
+const NetflixAppBar = ({logout}) => {
   const appBarIntialStyle = {
     background: 'none',
     boxShadow: 'none',
@@ -70,6 +70,7 @@ const NetflixAppBar = () => {
             className="nav__avatar"
             src={netflixAvatar}
             alt=""
+            onClick={logout}
           />
         </Toolbar>
       </AppBar>

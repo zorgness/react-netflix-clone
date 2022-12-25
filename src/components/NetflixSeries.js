@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 })
 
-const NetflixSeries = () => {
+const NetflixSeries = ({logout}) => {
   const classes = useStyles()
   const [type] = useState(getRandomType())
 
@@ -41,7 +41,7 @@ const NetflixSeries = () => {
 
   return (
     <>
-      <NetflixAppBar />
+      <NetflixAppBar logout={logout} />
       <NetflixHeader movie={headerMovie?.data} type={type} />
 
       <NetflixRow
