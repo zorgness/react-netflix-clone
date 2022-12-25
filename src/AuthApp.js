@@ -10,7 +10,7 @@ import {NetflixNews} from 'components/NetflixNews'
 import {NetflixBookmark} from 'components/NetflixBookmark'
 import {NetflixSearch} from 'components/NetflixSearch'
 
-function AuthApp({logout}) {
+function AuthApp({logout, isLogged}) {
   return (
     <Router>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -24,7 +24,9 @@ function AuthApp({logout}) {
           <Route path="/movies" element={<NetflixMovies logout={logout} />} />
           <Route path="/series" element={<NetflixSeries logout={logout} />} />
           <Route path="/news" element={<NetflixNews logout={logout} />} />
-          <Route path="/list" element={<NetflixBookmark logout={logout} />} />
+          {isLogged ? (
+            <Route path="/list" element={<NetflixBookmark logout={logout} />} />
+          ) : null}
           <Route path="*" element={<Error404 />} />
           <Route
             path="/search/:query"

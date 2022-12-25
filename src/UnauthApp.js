@@ -1,8 +1,14 @@
 import * as React from 'react'
 import LoginRegister from './components/LoginRegister'
+import {AuthApp} from 'AuthApp'
 
 function UnauthApp({login, register}) {
   const imageUrl = '/images/posters.jpg'
+  const [isVisiting, setIsVisiting] = React.useState(false)
+
+  const handleClick = () => {
+    setIsVisiting(true)
+  }
   return (
     <div
       style={{
@@ -25,6 +31,15 @@ function UnauthApp({login, register}) {
       />
 
       <div>
+        {/* {isVisiting ? (
+          <AuthApp isLogged={false} />
+        ) : (
+          <>
+            {' '}
+            <button>simple visite</button>
+            <LoginRegister open={true} login={login} register={register} />
+          </>
+        )} */}
         <LoginRegister open={true} login={login} register={register} />
       </div>
     </div>

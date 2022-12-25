@@ -58,6 +58,7 @@ async function getUserByToken() {
 
 function App() {
   const {data: authUser, execute, status, setData} = useFetchData()
+  const [isLogged, setislogged] = React.useState(false)
   React.useEffect(() => {
     execute(getUserByToken())
   }, [execute])
@@ -68,6 +69,7 @@ function App() {
       .login(data)
       .then(user => setData(user))
       .catch(err => setAuthError(err))
+  setislogged(true)
   const register = data =>
     authNetflix
       .register(data)
