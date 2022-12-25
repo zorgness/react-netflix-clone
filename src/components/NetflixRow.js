@@ -1,5 +1,5 @@
 import {Alert, AlertTitle} from '@mui/material'
-import {useFetchData} from 'utils/hooks'
+import {useQuery} from 'react-query'
 import {clientApi} from 'utils/clientApi'
 import {TYPE_MOVIE} from './../config'
 import React from 'react'
@@ -15,8 +15,6 @@ const NetflixRow = ({
   filter,
   watermark = false,
 }) => {
-  // 🐶 Utilise le Hook 'useFetchData' (avec {data, error, status, execute})
-  const {data, error, status, execute} = useFetchData()
   const endpointLatest = `${type}/latest`
   const endpointPopular = `${type}/popular`
   const endpointTopRated = `${type}/top_rated`
@@ -44,15 +42,15 @@ const NetflixRow = ({
       throw new Error('Type non supporté')
   }
 
-  React.useEffect(() => {
-    execute(clientApi(endpoint))
-  }, [execute, endpoint])
+  const {data, error, status} = useQuery(endpoint, () => clientApi(endpoint))
 
   const buildImagePath = data => {
     const image = wideImage ? data?.backdrop_path : data?.poster_path
     return `${imagePath400}${image}`
   }
   const watermarkClass = watermark ? 'watermarked' : ''
+
+  console.log(status)
 
   if (status === 'fetching' || status === 'idle') {
     return <RowSkeleton />
