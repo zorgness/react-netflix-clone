@@ -64,12 +64,13 @@ function App() {
   }, [execute])
 
   const [authError, setAuthError] = React.useState()
-  const login = data =>
+  const login = data => {
     authNetflix
       .login(data)
       .then(user => setData(user))
       .catch(err => setAuthError(err))
-  setislogged(true)
+    setislogged(true)
+  }
   const register = data =>
     authNetflix
       .register(data)

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const FormLogin = ({create = false, login, register, logout}) => {
+const FormLogin = ({create = false, login, register, logout, visit}) => {
   const [checked, setChecked] = React.useState(false)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -76,6 +76,7 @@ const FormLogin = ({create = false, login, register, logout}) => {
           >
             {label}
           </Button>
+          <Button onClick={visit}>Simple visite</Button>
           <div>
             {' '}
             <FormGroup row>
@@ -111,6 +112,7 @@ function PopupLogin({
   logout,
   error,
   status,
+  visit,
 }) {
   const classes = useStyles()
   const [create, setCreate] = React.useState(signup)
@@ -142,6 +144,7 @@ function PopupLogin({
             login={login}
             register={register}
             logout={logout}
+            visit={visit}
           />
           {error ? (
             <Alert severity="error">Erreur : {error.message}</Alert>

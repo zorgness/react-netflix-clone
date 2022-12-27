@@ -8,6 +8,7 @@ function UnauthApp({login, register}) {
 
   const handleClick = () => {
     setIsVisiting(true)
+    console.log('visiting')
   }
   return (
     <div
@@ -31,16 +32,18 @@ function UnauthApp({login, register}) {
       />
 
       <div>
-        {/* {isVisiting ? (
+        {isVisiting ? (
           <AuthApp isLogged={false} />
         ) : (
           <>
-            {' '}
-            <button>simple visite</button>
-            <LoginRegister open={true} login={login} register={register} />
+            <LoginRegister
+              open={true}
+              visit={handleClick}
+              login={login}
+              register={register}
+            />
           </>
-        )} */}
-        <LoginRegister open={true} login={login} register={register} />
+        )}
       </div>
     </div>
   )
