@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
+import {useAuth} from '../context/AuthContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const FormLogin = ({create = false, login, register, logout, visit}) => {
+const FormLogin = ({create = false, login, register, logout}) => {
   const [checked, setChecked] = React.useState(false)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -76,7 +77,6 @@ const FormLogin = ({create = false, login, register, logout, visit}) => {
           >
             {label}
           </Button>
-          <Button onClick={visit}>Simple visite</Button>
           <div>
             {' '}
             <FormGroup row>
@@ -103,17 +103,8 @@ const FormLogin = ({create = false, login, register, logout, visit}) => {
   )
 }
 
-function PopupLogin({
-  open,
-  handleClose,
-  signup = false,
-  login,
-  register,
-  logout,
-  error,
-  status,
-  visit,
-}) {
+function PopupLogin({open, handleClose, signup = false, status}) {
+  const {login, logout, register, authError: error} = useAuth()
   const classes = useStyles()
   const [create, setCreate] = React.useState(signup)
   const handleSignUp = () => {
@@ -144,7 +135,6 @@ function PopupLogin({
             login={login}
             register={register}
             logout={logout}
-            visit={visit}
           />
           {error ? (
             <Alert severity="error">Erreur : {error.message}</Alert>
@@ -165,4 +155,4 @@ function PopupLogin({
     </>
   )
 }
-export default PopupLogin
+export {PopupLogin as LoginRegister}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import LoginRegister from './components/LoginRegister'
+import {LoginRegister} from './components/LoginRegister'
 import {AuthApp} from 'AuthApp'
 
 function UnauthApp({login, register}) {

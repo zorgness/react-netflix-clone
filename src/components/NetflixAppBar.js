@@ -8,6 +8,8 @@ import {styled, alpha} from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import {useNavigate} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
+import netflixLogo from '../images/netflix-logo.png'
+import netflixAvatar from '../images/netflix-avatar.png'
 
 const Search = styled('div')(({theme}) => ({
   marginRight: '10px',
@@ -92,7 +94,7 @@ const NetflixAppBar = () => {
   return (
     <AppBar style={appBarStyle}>
       <Toolbar>
-        <img className="nav__logo" src="/images/netflix-logo.png" alt="" />
+        <img className="nav__logo" src={netflixLogo} alt="" />
         <Link to="/">
           <Typography style={margin10} variant="h6">
             Acceuil
@@ -134,7 +136,7 @@ const NetflixAppBar = () => {
         <img
           style={{cursor: 'pointer'}}
           className="nav__avatar"
-          src="/images/netflix-avatar.png"
+          src={netflixAvatar}
           alt=""
           onClick={logout}
         />
