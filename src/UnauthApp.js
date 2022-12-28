@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {LoginRegister} from './components/LoginRegister'
-import {AuthApp} from 'AuthApp'
+import AuthApp from 'AuthApp'
 
 function UnauthApp({login, register}) {
   const imageUrl = '/images/posters.jpg'
@@ -49,4 +49,4 @@ function UnauthApp({login, register}) {
   )
 }
 
-export {UnauthApp}
+export default UnauthApp

@@ -38,4 +38,4 @@ function AuthApp({logout, isLogged}) {
   )
 }
 
-export {AuthApp}
+export default AuthApp

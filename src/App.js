@@ -3,6 +3,7 @@ import './mocks'
 import {useAuth} from './context/AuthContext'
 import {AppProviders} from './context'
 import LoadingFullScreen from './components/LoadingFullScreen'
+import 'App.css'
 const UnauthApp = React.lazy(() => import('./UnauthApp'))
 const AuthApp = React.lazy(() => import('./AuthApp'))
 
