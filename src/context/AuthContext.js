@@ -3,10 +3,8 @@ import * as authNetflix from '../utils/authNetflixProvider'
 import {clientAuth, clientNetFlix} from '../utils/clientApi'
 import {useFetchData} from '../utils/hooks'
 import {useQueryClient} from 'react-query'
-import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
 import {useClearHistory} from './HistoryMoviesContext'
-
+import LoadingFullScreen from '../components/LoadingFullScreen'
 const AuthContext = React.createContext()
 
 const useAuth = () => {
@@ -36,31 +34,38 @@ const AuthProvider = props => {
   }, [execute])
 
   const [authError, setAuthError] = React.useState()
-  const login = data =>
-    authNetflix
-      .login(data)
-      .then(user => setData(user))
-      .catch(err => setAuthError(err))
-  const register = data =>
-    authNetflix
-      .register(data)
-      .then(user => setData(user))
-      .catch(err => setAuthError(err))
-  const logout = () => {
+  const login = React.useCallback(
+    data =>
+      authNetflix
+        .login(data)
+        .then(user => setData(user))
+        .catch(err => setAuthError(err)),
+    [setData],
+  )
+  const register = React.useCallback(
+    data =>
+      authNetflix
+        .register(data)
+        .then(user => setData(user))
+        .catch(err => setAuthError(err)),
+    [setData],
+  )
+  const logout = React.useCallback(() => {
     authNetflix.logout()
     queryclient.clear()
     clearHistory()
     setData(null)
-  }
+  }, [clearHistory, queryclient, setData])
+  const value = React.useMemo(
+    () => ({authUser, login, register, logout, authError}),
+    [authError, authUser, login, logout, register],
+  )
+
   if (status === 'fetching' || status === 'idle') {
-    return (
-      <Backdrop open={true}>
-        <CircularProgress color="primary" />
-      </Backdrop>
-    )
+    return <LoadingFullScreen />
   }
+
   if (status === 'done') {
-    const value = {authUser, login, register, logout, authError}
     return <AuthContext.Provider value={value} {...props} />
   }
   throw new Error('status invalide')
