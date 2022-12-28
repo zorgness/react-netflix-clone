@@ -1,13 +1,12 @@
 import React from 'react'
 import {NetflixAppBar} from './NetflixAppBar'
 import {NetflixRow} from './NetflixRow'
-import {NetFlixFooter} from './NetFlixFooter'
+import {NetflixFooter} from './NetflixFooter'
 import {NetflixHeader} from './NetflixHeader'
 import {TYPE_MOVIE, TYPE_TV} from '../config'
 import {useParams, useLocation} from 'react-router-dom'
 import {useMovie} from '../utils/hooksMovies'
 import {useAddToHistory} from '../context/HistoryMoviesContext'
-import './Netflix.css'
 
 const NetflixById = ({logout}) => {
   let {tvId, movieId} = useParams()
@@ -75,7 +74,7 @@ const NetflixById = ({logout}) => {
         wideImage={false}
       />
 
-      <NetFlixFooter color="secondary" si />
+      <NetflixFooter color="secondary" si />
     </div>
   )
 }
