@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import {App} from './App'
 import reportWebVitals from './reportWebVitals'
+import {Profiler} from './components/Profiler'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Profiler id="App NetFlix" phases={['mount']}>
+      <App />
+    </Profiler>
   </React.StrictMode>,
   document.getElementById('root'),
 )
