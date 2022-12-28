@@ -1,10 +1,10 @@
 import * as React from 'react'
 import './mocks'
-import {AuthApp} from 'AuthApp'
-import {UnauthApp} from 'UnauthApp'
 import {useAuth} from './context/AuthContext'
 import {AppProviders} from './context'
-import './App.css'
+import LoadingFullScreen from './components/LoadingFullScreen'
+const UnauthApp = React.lazy(() => import('./UnauthApp'))
+const AuthApp = React.lazy(() => import('./AuthApp'))
 
 function App() {
   return (
@@ -16,7 +16,11 @@ function App() {
 
 const AppConsumer = () => {
   const {authUser} = useAuth()
-  return authUser ? <AuthApp /> : <UnauthApp />
+  return (
+    <React.Suspense fallback={<LoadingFullScreen />}>
+      {authUser ? <AuthApp /> : <UnauthApp />}
+    </React.Suspense>
+  )
 }
 
 export {App}
