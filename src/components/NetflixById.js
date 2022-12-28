@@ -1,24 +1,24 @@
 import React from 'react'
 import {NetflixAppBar} from './NetflixAppBar'
 import {NetflixRow} from './NetflixRow'
-import {NetflixFooter} from './NetflixFooter'
+import {NetFlixFooter} from './NetFlixFooter'
 import {NetflixHeader} from './NetflixHeader'
-import {clientApi} from '../utils/clientApi'
-import {useQuery} from 'react-query'
 import {TYPE_MOVIE, TYPE_TV} from '../config'
 import {useParams, useLocation} from 'react-router-dom'
+import {useMovie} from '../utils/hooksMovies'
+import {useAddToHistory} from '../context/HistoryMoviesContext'
+import './Netflix.css'
 
-const NetflixById = () => {
+const NetflixById = ({logout}) => {
   let {tvId, movieId} = useParams()
   const location = useLocation()
   const [type, setType] = React.useState(
     location.pathname.includes(TYPE_TV) ? TYPE_TV : TYPE_MOVIE,
   )
   const [id, setId] = React.useState(type === TYPE_TV ? tvId : movieId)
+  const headerMovie = useMovie(type, id)
 
-  const {data: headerMovie} = useQuery(`${type}/${id}`, () =>
-    clientApi(`${type}/${id}`),
-  )
+  useAddToHistory(headerMovie, type)
 
   React.useEffect(() => {
     const type = location.pathname.includes(TYPE_TV) ? TYPE_TV : TYPE_MOVIE
@@ -32,8 +32,8 @@ const NetflixById = () => {
 
   return (
     <div>
-      <NetflixAppBar />
-      <NetflixHeader movie={headerMovie?.data} type={type} />
+      <NetflixAppBar logout={logout} />
+      <NetflixHeader movie={headerMovie} type={type} />
       <NetflixRow
         wideImage={true}
         watermark={true}
@@ -75,8 +75,8 @@ const NetflixById = () => {
         wideImage={false}
       />
 
-      <NetflixFooter color="secondary" si />
+      <NetFlixFooter color="secondary" si />
     </div>
   )
 }
-export default NetflixById
+export {NetflixById}
