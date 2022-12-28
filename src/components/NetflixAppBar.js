@@ -10,6 +10,7 @@ import {useNavigate} from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
 import netflixLogo from '../images/netflix-logo.png'
 import netflixAvatar from '../images/netflix-avatar.png'
+import {MenuHistory} from './MenuHistory'
 
 const Search = styled('div')(({theme}) => ({
   marginRight: '10px',
@@ -132,7 +133,7 @@ const NetflixAppBar = () => {
             inputProps={{'aria-label': 'search'}}
           />
         </Search>
-
+        <MenuHistory style={{cursor: 'pointer', marginRight: '10px'}} />
         <img
           style={{cursor: 'pointer'}}
           className="nav__avatar"
