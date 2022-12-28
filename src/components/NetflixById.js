@@ -1,7 +1,7 @@
 import React from 'react'
 import {NetflixAppBar} from './NetflixAppBar'
 import {NetflixRow} from './NetflixRow'
-import {NetFlixFooter} from './NetFlixFooter'
+import {NetflixFooter} from './NetflixFooter'
 import {NetflixHeader} from './NetflixHeader'
 import {TYPE_MOVIE, TYPE_TV} from '../config'
 import {useParams, useLocation} from 'react-router-dom'
@@ -77,7 +77,7 @@ const NetflixById = ({logout}) => {
           wideImage={false}
         />
 
-        <NetFlixFooter color="secondary" si />
+        <NetflixFooter color="secondary" si />
       </Profiler>
     </div>
   )
