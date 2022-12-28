@@ -50,8 +50,6 @@ const NetflixRow = ({
   }
   const watermarkClass = watermark ? 'watermarked' : ''
 
-  console.log(status)
-
   if (status === 'loading' || status === 'idle') {
     return <RowSkeleton />
   }

@@ -1,7 +1,6 @@
 import {clientAuth, clientNetFlix} from 'utils/clientApi'
-import {server} from 'mocks'
+import {server, rest} from 'mocks'
 import {AUTH_URL} from '../../config'
-import {rest} from 'msw'
 
 import * as authNetflix from '../authNetflixProvider'
 jest.mock('../../utils/authNetflixProvider')
