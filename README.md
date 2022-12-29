@@ -1,7 +1,6 @@
 <div>
   <h1 align="center"><a href="https://go.mikecodeur.com/react-mastery">React NetFlix Clone 🚀 ReactMastery.Dev</a></h1>
   
- https://react-netflix-clone-gamma.vercel.app/
   <strong>
     Clone de NetFlix
   </strong>
