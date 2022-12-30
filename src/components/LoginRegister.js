@@ -69,6 +69,9 @@ const FormLogin = ({create = false, login, register, logout}) => {
         </>
       ) : (
         <>
+          <h5>Pour tester</h5>
+          <p>email: toto@gmail.com</p>
+          <p>password: 123456</p>
           <Button
             style={{margin: '20px 0 5px 0'}}
             variant="contained"
